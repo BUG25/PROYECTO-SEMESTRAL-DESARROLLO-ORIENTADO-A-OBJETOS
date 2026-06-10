@@ -1,0 +1,27 @@
+SISTEMA DE VENTA DE MASCOTAS VIRTUAL
+
+- el sistema debe almacenar información sobre las mascotas que se pueden adquirir y su precio
+- el usuario podrá navegar en la ventana de catálogo y ver productos
+- el usuario usará saldo prepago para adquirir mascotas
+- el sistema debe registrar en memoria local la información del usuario y el saldo que posee
+- el usuario añadirá mascotas que desee al carrito y pagar con su saldo
+
+ACTORES:
+- Rol: Administrador
+- Rol: Cliente
+- Rol: <<Servicio>> Autenticación
+
+RELACIONES:
+- Administrador: Administrar precios
+- Cliente -> agregar a carrito
+- Cliente -> consultar compras realizadas
+- Cliente -> realizar pago
+- Cliente -> ver mascota
+- Autenticación -> completar compra
+
+INCLUDES:
+- Agregar a carrito --include--> verificar disponibilidad
+- Realizar pago --include--> Completar compra
+- Realizar pago --include--> Generar factura electrónica
+- Realizar pago --include--> Ver ítems
+- Ver mascota --include--> verificar disponibilidad
