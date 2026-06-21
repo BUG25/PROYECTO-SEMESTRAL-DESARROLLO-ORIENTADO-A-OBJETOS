@@ -12,16 +12,54 @@ ACTORES:
 - Rol: <<Servicio>> Autenticación
 
 RELACIONES:
-- Administrador: Administrar precios
+- Administrador -> Administrar precios
+- Administrador -> Agregar mascota
+- Administrador -> Eliminar mascota
+- Administrador -> Iniciar sesión
+- Administrador -> Modificar datos de mascota
+- Administrador -> Gestionar stock
+- Administrador -> Gestionar precios
+- Administrador -> Ver historial de ventas global
 - Cliente -> agregar a carrito
-- Cliente -> consultar compras realizadas
+- Cliente -> Alimentar mascota
+- Cliente -> consultar historial compras realizadas
+- Cliente -> Consultar saldo
+- Cliente -> Curar mascota
+- Cliente -> Dormir a mascota
+- Cliente -> Eliminar del carrito
+- Cliente -> iniciar sesión
+- Cliente -> Jugar con mascota
+- Cliente -> Modificar cantidad en carrito
 - Cliente -> realizar pago
-- Cliente -> ver mascota
+- Cliente -> Recargar saldo
+- Cliente -> Vaciar carrito
+- Cliente -> Ver carrito
+- Cliente -> Ver catálogo de mascotas
+- Cliente -> Ver detalle mascota
+- Cliente -> Ver estado saludo mascota
+- Cliente -> Ver mascotas adoptadas
 - Autenticación -> completar compra
 
 INCLUDES:
 - Agregar a carrito --include--> verificar disponibilidad
+- Alimentar mascota --include-->  Actualizar nivel de hambre
+- Curar mascota --include-->  verificar estado de salud
+- Dormir mascota --include-->  Actualizar nivel de energía
+- Jugar con mascota --include-->  Actualizar nivel de diversión
+- Jugar con mascota --include-->  Verificar energía
 - Realizar pago --include--> Completar compra
 - Realizar pago --include--> Generar factura electrónica
 - Realizar pago --include--> Ver ítems
-- Ver mascota --include--> verificar disponibilidad
+- Realizar pago --include--> Verificar saldo suficiente
+- Ver mascota --include--> ver detalle mascota
+- Completar compra --include--> Actualizar stock (tras pagar)
+- Completar compra --include--> Asignar mascota al usuario
+- Realizar pago --include-->  Completar compra
+- Realizar pago --include-->  Generar factura electrónica
+- Realizar pago --include--> Ver ítems
+- Realizar pago --include--> Verificar saldo suficiente (antes de completar)
+- Ver estado salud --include--> Ver estado de ánimo
+- Ver estado salud --include-->  Ver niveles de hambre, energía, diversión
+
+EXTENDS:
+- Realizar pago --extend--> Recargar saldo (si el saldo es insuficiente)
