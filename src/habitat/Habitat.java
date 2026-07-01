@@ -1,7 +1,7 @@
 package habitat;
 
 /**
- * Representa un habiatt que el cliente adquirio en la tienda
+ * Representa un habitat que el cliente adquirio en la tienda
  * cada habitat tiene un tipo o capacidad maxima de mascotas
  */
 
@@ -24,6 +24,15 @@ public class Habitat {
      */
     public boolean tieneEspaciosLibre(){
         return ocupados < capacidadMaxima;
+    }
+    /**
+     * se ocupa un espacio del habitat
+     */
+    public void ocupar(){
+        if(!tieneEspaciosLibre()){
+            throw new IllegalArgumentException("Habitat sin espacio disponible: "+ tipo;
+        }
+        ocupados++;
     }
 
     public TipoHabitat getTipo() {
