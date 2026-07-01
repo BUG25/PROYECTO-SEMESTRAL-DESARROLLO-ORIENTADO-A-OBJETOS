@@ -49,4 +49,21 @@ public abstract class Mascota {
         comida = Math.min(100, comida+20);
         salud = Math.min(100, salud+5);
     }
+
+    /**
+     * Limpiar el habitat: sube la salud y felciidad
+     */
+    public void limpiarHabitat() {
+        salud = Math.min(100, salud+10);
+        felicidad = Math.min(100, felicidad+5);
+    }
+
+    /**
+     * Jugar con la mascota : sube la felicidad pero baja la comida
+     * ningun valor puede ser menor a 0
+     */
+    public void jugar() {
+        felicidad= Math.min(100, felicidad+15);
+        comida = Math.max(0, comida-5);
+    }
 }
