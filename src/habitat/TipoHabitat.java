@@ -4,5 +4,6 @@ public enum TipoHabitat {
     PERRERA,
     ARENERO,
     PECERA,
-    JAULA
+    JAULA_PAJARO,
+    JAULA_HAMSTER
 }
