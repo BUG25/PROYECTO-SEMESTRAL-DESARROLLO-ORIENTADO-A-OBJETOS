@@ -1,4 +1,5 @@
 package model;
+import habitat.TipoHabitat;
 
 /**
  * Representa una mascota generica adoptada desde la tienda
@@ -28,6 +29,13 @@ public abstract class Mascota {
     protected Mascota(String nombre) {
         this.nombre = nombre;
     }
+
+    /**
+     * Indica que tipo de habitat necesita cada especia para
+     * poder ser adoptada, cada subclase concreta debe definir su propio requisito
+     */
+    public abstract TipoHabitat getTipoHabitatRequerido ();
+
     public String getNombre() {
         return nombre;
     }
