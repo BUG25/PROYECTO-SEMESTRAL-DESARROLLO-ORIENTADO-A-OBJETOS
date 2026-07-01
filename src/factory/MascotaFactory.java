@@ -7,5 +7,5 @@ import model.Mascota;
  * para devolver una mascota de su especie
  */
 public abstract class MascotaFactory {
-    public abstract Mascota crearMoscota(String nombre);
+    public abstract Mascota crearMascota(String nombre);
 }
