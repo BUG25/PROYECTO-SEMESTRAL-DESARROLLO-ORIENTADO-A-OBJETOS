@@ -30,7 +30,7 @@ public class Habitat {
      */
     public void ocupar(){
         if(!tieneEspaciosLibre()){
-            throw new IllegalArgumentException("Habitat sin espacio disponible: "+ tipo;
+            throw new IllegalArgumentException("Habitat sin espacio disponible: "+ tipo);
         }
         ocupados++;
     }
@@ -38,7 +38,6 @@ public class Habitat {
     public TipoHabitat getTipo() {
         return tipo;
     }
-
     public int getCapacidadMaxima() {
         return capacidadMaxima;
     }
