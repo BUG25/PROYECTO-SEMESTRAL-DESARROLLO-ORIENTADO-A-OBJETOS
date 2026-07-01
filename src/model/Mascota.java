@@ -40,4 +40,13 @@ public abstract class Mascota {
     public int getFelicidad() {
         return felicidad;
     }
+    /**
+     * Alimentar a la mascota : sube el nivel de comida
+     * tambien sube un poco en salud
+     * ningun valor puede superar 100
+     */
+    public void alimentar () {
+        comida = Math.min(100, comida+20);
+        salud = Math.min(100, salud+5);
+    }
 }
