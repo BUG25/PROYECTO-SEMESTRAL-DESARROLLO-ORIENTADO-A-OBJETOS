@@ -18,6 +18,7 @@ public class Tienda {
      * @param usuario, quien esta comprando
      * @param tipo, tipo de habitata que adquirio
      * @param costo, precio del habitat
+     * @param capacidad, cuantas mascotas puede tener
      * @throws DineroInsuficienteException, si el usuario no tiene suficiente dinero
      */
     public void comprarHabitat(Usuario usuario, TipoHabitat tipo, int capacidad, double costo)
