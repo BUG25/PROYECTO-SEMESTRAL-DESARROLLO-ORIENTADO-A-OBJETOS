@@ -18,6 +18,25 @@ public class Usuario {
         this.dinero = dineroInicial;
     }
 
+    /**
+     * descuenta dinero al usuario al comprar algo
+     * la validación de si el usuario tiene suficiente dinero para comprar algo
+     * llama a este metodo
+     * @param monto cantidad que se descontara
+     */
+    public void descontarDinero(double monto){
+        this.dinero -= monto;
+    }
+
+    /**
+     * Agrega/da dinero como recompensa al usuario al alimentar,
+     * limpiar o jugar con la mascota
+     * @param monto cantidad que se da como recompensa
+     */
+    public void agregarDinero(double monto){
+        this.dinero += monto;
+    }
+
     public double getDinero() {
         return dinero;
     }
