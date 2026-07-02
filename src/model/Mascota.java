@@ -74,4 +74,16 @@ public abstract class Mascota {
         felicidad= Math.min(100, felicidad+15);
         comida = Math.max(0, comida-5);
     }
+
+    /**
+     * Hacemos la simulación del desgaste natural de la mascota ( salud, felicidad y hambre)
+     * que pasa con el tiempo, mientras el juego este ejecución
+     */
+    public void degradarConElTiempo() {
+        comida = Math.max(0,comida-2);
+        felicidad = Math.max(0,felicidad-1);
+        if (comida == 0){
+            salud = Math.max(0,salud-5);
+        }
+    }
 }
