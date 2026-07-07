@@ -1,6 +1,6 @@
 package factory;
-import model.Mascota;
-import model.TipoMascota;
+import model.mascotas.Mascota;
+import model.mascotas.TipoMascota;
 import  java.util.EnumMap;
 import  java.util.Map;
 

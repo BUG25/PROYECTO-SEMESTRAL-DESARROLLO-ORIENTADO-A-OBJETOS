@@ -4,8 +4,8 @@ import  factory.FabricaMascotas;
 import excepciones.DineroInsuficienteException;
 import habitat.Habitat;
 import habitat.TipoHabitat;
-import model.Mascota;
-import model.TipoMascota;
+import model.mascotas.Mascota;
+import model.mascotas.TipoMascota;
 
 /**
  * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y habitat necesaria)

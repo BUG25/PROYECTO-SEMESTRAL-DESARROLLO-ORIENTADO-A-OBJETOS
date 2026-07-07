@@ -1,4 +1,4 @@
-package model;
+package model.mascotas;
 import habitat.TipoHabitat;
 
 /**
@@ -8,7 +8,7 @@ import habitat.TipoHabitat;
  */
 
 public abstract class Mascota {
-    /** Nombre de la mascota, se le asigan al ser adoptada */
+    /** Nombre de la mascota, se le asignan al ser adoptada */
     private final String nombre;
 
     /** Nivel de comida, baja con el tiempo, sube al alimentarla */
@@ -21,7 +21,7 @@ public abstract class Mascota {
     private int felicidad = 100;
 
     /**
-     * Constructor protegido, solo las subclases (perro, gato,...) pueden llamarlo
+     * Constructor protegido, solo las subclases (perro, gato, ...) pueden llamarlo
      * mediante super(nombre)
      * @param nombre  nombre de la mascota
      */
@@ -49,7 +49,7 @@ public abstract class Mascota {
         return felicidad;
     }
     /**
-     * Alimentar a la mascota : sube el nivel de comida
+     * Alimentar a la mascota: sube el nivel de comida
      * tambien sube un poco en salud
      * ningun valor puede superar 100
      */
@@ -67,7 +67,7 @@ public abstract class Mascota {
     }
 
     /**
-     * Jugar con la mascota : sube la felicidad pero baja la comida
+     * Jugar con la mascota: sube la felicidad pero baja la comida
      * ningun valor puede ser menor a 0
      */
     public void jugar() {
@@ -76,7 +76,7 @@ public abstract class Mascota {
     }
 
     /**
-     * Hacemos la simulación del desgaste natural de la mascota ( salud, felicidad y hambre)
+     * Hacemos la simulación del desgaste natural de la mascota (salud, felicidad y hambre)
      * que pasa con el tiempo, mientras el juego este ejecución
      */
     public void degradarConElTiempo() {

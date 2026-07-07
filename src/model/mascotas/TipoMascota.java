@@ -1,4 +1,4 @@
-package model;
+package model.mascotas;
 
 public enum TipoMascota {
     PERRO,

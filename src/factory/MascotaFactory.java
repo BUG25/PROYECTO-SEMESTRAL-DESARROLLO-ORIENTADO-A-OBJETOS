@@ -1,8 +1,8 @@
 package factory;
-import model.Mascota;
+import model.mascotas.Mascota;
 
 /**
- * Clase creadora con patrines de uso, patron Factory Method
+ * Clase creadora con patrones de uso, patron Factory Method
  * se declara el metodo crearMascota, y que cada especie concreta la implementa
  * para devolver una mascota de su especie
  */

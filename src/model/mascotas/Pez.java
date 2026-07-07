@@ -1,4 +1,4 @@
-package model;
+package model.mascotas;
 import habitat.TipoHabitat;
 
 /**
@@ -6,7 +6,7 @@ import habitat.TipoHabitat;
  * Habitat: Pecera
  */
 
-public class Pez extends Mascota{
+public class Pez extends Mascota {
     public Pez(String nombre){
         super(nombre);
     }

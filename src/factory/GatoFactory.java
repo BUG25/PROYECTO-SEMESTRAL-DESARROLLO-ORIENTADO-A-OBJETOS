@@ -1,6 +1,6 @@
 package factory;
-import model.Mascota;
-import model.Gato;
+import model.mascotas.Mascota;
+import model.mascotas.Gato;
 
 /**
  * se le indica que debe crear especificamente un gato y no otra mascota

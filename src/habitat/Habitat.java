@@ -20,7 +20,7 @@ public class Habitat {
         this.ocupados = 0;
     }
     /**
-     * @return treu si entra otra mascota más
+     * @return true si entra otra mascota más
      */
     public boolean tieneEspaciosLibre(){
         return ocupados < capacidadMaxima;
