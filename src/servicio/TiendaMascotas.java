@@ -5,8 +5,16 @@ import model.mascotas.Mascota;
 import java.util.Random;
 
 public class TiendaMascotas {
-    private final Random random = new Random();
+    private final Random random;
     private int reputacion = 100;
+
+    public TiendaMascotas() {
+        this(new Random());
+    }
+
+    public TiendaMascotas(Random random) {
+        this.random = random;
+    }
 
     public int getReputacion() {
         return reputacion;

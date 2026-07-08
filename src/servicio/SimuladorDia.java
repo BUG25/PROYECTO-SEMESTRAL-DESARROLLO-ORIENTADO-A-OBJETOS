@@ -1,4 +1,4 @@
-﻿package servicio;
+package servicio;
 
 import model.habitat.Habitat;
 import model.enfermedades.Enfermedad;
@@ -7,7 +7,6 @@ import model.enfermedades.Parasitos;
 import model.enfermedades.Pulgas;
 import model.enfermedades.Resfriado;
 import model.mascotas.Mascota;
-import model.mascotas.TipoMascota;
 
 import java.util.List;
 import java.util.Random;
@@ -38,6 +37,10 @@ public class SimuladorDia {
         }
 
         for (Mascota mascota : usuario.getMascotas()) {
+            if (mascota.estaMuerta()) {
+                continue;
+            }
+
             mascota.degradarConElTiempo(periodo);
             evaluarContagio(usuario, mascota);
             if (mascota.estaEnferma()) {
@@ -82,9 +85,8 @@ public class SimuladorDia {
             return;
         }
 
-        TipoMascota tipoMascota = obtenerTipoMascota(mascota);
         for (Enfermedad enfermedad : enfermedades) {
-            if (enfermedad.afecta(tipoMascota)) {
+            if (enfermedad.afecta(mascota.getTipoMascota())) {
                 mascota.contagiar(enfermedad);
                 break;
             }
@@ -98,17 +100,5 @@ public class SimuladorDia {
             }
         }
         return null;
-    }
-
-    private TipoMascota obtenerTipoMascota(Mascota mascota) {
-        String nombreClase = mascota.getClass().getSimpleName();
-        return switch (nombreClase) {
-            case "Perro" -> TipoMascota.PERRO;
-            case "Gato" -> TipoMascota.GATO;
-            case "Pez" -> TipoMascota.PEZ;
-            case "Hamster" -> TipoMascota.HAMSTER;
-            case "Pajaro" -> TipoMascota.PAJARO;
-            default -> throw new IllegalStateException("Tipo de mascota no soportado");
-        };
     }
 }

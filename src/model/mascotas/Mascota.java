@@ -1,4 +1,4 @@
-﻿package model.mascotas;
+package model.mascotas;
 
 import model.habitat.Habitat;
 import model.habitat.TipoHabitat;
@@ -24,6 +24,8 @@ public abstract class Mascota {
     protected Mascota(String nombre) {
         this.nombre = nombre;
     }
+
+    public abstract TipoMascota getTipoMascota();
 
     public abstract TipoHabitat getTipoHabitatRequerido();
 
@@ -95,6 +97,10 @@ public abstract class Mascota {
     }
 
     public void alimentar(Alimento alimento) {
+        if (!alimento.esCompatibleCon(getTipoMascota())) {
+            throw new IllegalArgumentException("Alimento incompatible con " + getTipoMascota());
+        }
+
         comida = Math.min(100, comida + alimento.getValorNutricional());
         ultimaCalidadAlimento = alimento.getCalidad();
 
@@ -184,7 +190,7 @@ public abstract class Mascota {
     }
 
     private int obtenerBajadaComida(PeriodoDia periodo) {
-        TipoMascota tipo = obtenerTipoMascota();
+        TipoMascota tipo = getTipoMascota();
 
         if (tipo == TipoMascota.PERRO || tipo == TipoMascota.GATO) {
             return 10;
@@ -201,24 +207,5 @@ public abstract class Mascota {
         return switch (periodo) {
             case MANANA, TARDE, NOCHE -> 8;
         };
-    }
-
-    private TipoMascota obtenerTipoMascota() {
-        if (this instanceof Perro) {
-            return TipoMascota.PERRO;
-        }
-        if (this instanceof Gato) {
-            return TipoMascota.GATO;
-        }
-        if (this instanceof Pez) {
-            return TipoMascota.PEZ;
-        }
-        if (this instanceof Hamster) {
-            return TipoMascota.HAMSTER;
-        }
-        if (this instanceof Pajaro) {
-            return TipoMascota.PAJARO;
-        }
-        throw new IllegalStateException("Tipo de mascota no soportado");
     }
 }
