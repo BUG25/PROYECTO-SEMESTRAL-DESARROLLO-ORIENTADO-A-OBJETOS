@@ -7,14 +7,15 @@ package habitat;
 
 public class Habitat {
     private final TipoHabitat tipo;
-    private final int capacidadMaxima;
     private int ocupados;
+    private final int capacidadMaxima;
+    private int higiene = 100;
     /**
      * @param tipo, tipo de habitat (arenero, pecera, etc)
      * @param capacidadMaxima cuantas mascotas puede alojar como maximo
      */
 
-    public Habitat(TipoHabitat tipo, int capacidadMaxima){
+    public Habitat(TipoHabitat tipo, int capacidadMaxima) {
         this.tipo = tipo;
         this.capacidadMaxima = capacidadMaxima;
         this.ocupados = 0;
@@ -38,11 +39,20 @@ public class Habitat {
     public TipoHabitat getTipo() {
         return tipo;
     }
-    public int getCapacidadMaxima() {
-        return capacidadMaxima;
-    }
 
     public int getOcupados() {
         return ocupados;
+    }
+
+    public int getHigiene() {
+        return higiene;
+    }
+
+    public void limpiar() {
+        higiene = Math.min(100, higiene + 25);
+    }
+
+    public void degradarConElTiempo() {
+        higiene = Math.max(0, higiene - 4);
     }
 }
