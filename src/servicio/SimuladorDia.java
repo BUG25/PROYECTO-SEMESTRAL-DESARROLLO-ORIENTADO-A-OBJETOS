@@ -1,6 +1,6 @@
 package servicio;
 
-import habitat.Habitat;
+import model.habitat.Habitat;
 import model.enfermedades.Enfermedad;
 import model.enfermedades.Infeccion;
 import model.enfermedades.Parasitos;

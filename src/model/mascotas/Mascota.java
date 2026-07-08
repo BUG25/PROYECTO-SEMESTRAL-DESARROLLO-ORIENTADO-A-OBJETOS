@@ -1,7 +1,7 @@
 ﻿package model.mascotas;
 
-import habitat.Habitat;
-import habitat.TipoHabitat;
+import model.habitat.Habitat;
+import model.habitat.TipoHabitat;
 import model.alimentos.Alimento;
 import model.alimentos.CalidadAlimento;
 import model.enfermedades.Enfermedad;

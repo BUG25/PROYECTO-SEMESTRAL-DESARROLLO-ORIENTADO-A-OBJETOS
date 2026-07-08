@@ -1,4 +1,4 @@
-package habitat;
+package model.habitat;
 
 public enum TipoHabitat {
     PERRERA(9500, 3),

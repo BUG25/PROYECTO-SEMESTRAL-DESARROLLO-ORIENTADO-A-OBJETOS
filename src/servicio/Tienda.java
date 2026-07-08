@@ -2,15 +2,15 @@ package servicio;
 import excepciones.SinHabitatDisponibleException;
 import  factory.FabricaMascotas;
 import excepciones.DineroInsuficienteException;
-import habitat.Habitat;
-import habitat.TipoHabitat;
+import model.habitat.Habitat;
+import model.habitat.TipoHabitat;
 import model.alimentos.Alimento;
 import model.mascotas.Mascota;
 import model.mascotas.TipoMascota;
 import model.medicinas.Medicina;
 
 /**
- * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y habitat necesaria)
+ * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y model.habitat necesaria)
  * no guarda ninguna información del usuario
  */
 
@@ -22,8 +22,8 @@ public class Tienda {
     }
 
     /**
-     * EL usuario adquiere un habitat, se valida que tenga dinero suficiente, si lo tiene
-     * se le descuenta y se agrega el habitat a su lista
+     * EL usuario adquiere un model.habitat, se valida que tenga dinero suficiente, si lo tiene
+     * se le descuenta y se agrega el model.habitat a su lista
      * @param tipo, tipo de habitata que adquirio
      * @throws DineroInsuficienteException, si el usuario no tiene suficiente dinero
      */
@@ -58,13 +58,13 @@ public class Tienda {
 
     /**
      * EL usuario adopta a una mascota nueva. Se crea la mascotacon el factory method, y luego se analiza entre
-     * los habitats del usuario, se verifica que tenga el habitat correcto con capacidad suficiente
+     * los habitats del usuario, se verifica que tenga el model.habitat correcto con capacidad suficiente
      * si no existe se lanza SinHabitatDisponibleException y no se puede adoptar a la mascota
      * @param usuario, quien adopta
      * @param tipo, especie que se quiere adoptar
      * @param nombre, nombre que se le da a la mascota
      * @return, la mascota recien adoptada
-     * @throws excepciones.SinHabitatDisponibleException, si no hay habitat compatible con la especie
+     * @throws excepciones.SinHabitatDisponibleException, si no hay model.habitat compatible con la especie
      */
     public Mascota adoptarMascota(Usuario usuario, TipoMascota tipo, String nombre)
         throws SinHabitatDisponibleException{
@@ -80,8 +80,8 @@ public class Tienda {
         return nueva;
     }
     /**
-     * Bisca entre los habitats del usuario, que si tiene el habitat requerido y si tiene espacio libre
-     * @return el habitat encontrado, sino debuelve null
+     * Bisca entre los habitats del usuario, que si tiene el model.habitat requerido y si tiene espacio libre
+     * @return el model.habitat encontrado, sino debuelve null
      */
     private Habitat buscarHabitatConEspacio(Usuario usuario, TipoHabitat tipoRequerido){
         for (Habitat h : usuario.getHabitats()){

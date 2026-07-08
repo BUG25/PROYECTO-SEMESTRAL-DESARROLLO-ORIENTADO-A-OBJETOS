@@ -1,6 +1,6 @@
 package servicio;
 
-import habitat.Habitat;
+import model.habitat.Habitat;
 import model.alimentos.Alimento;
 import model.medicinas.Medicina;
 

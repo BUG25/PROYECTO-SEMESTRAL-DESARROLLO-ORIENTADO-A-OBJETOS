@@ -1,8 +1,3 @@
-import excepciones.DineroInsuficienteException;
-import excepciones.SinHabitatDisponibleException;
-import habitat.TipoHabitat;
-import model.Mascota;
-import model.TipoMascota;
 import servicio.Tienda;
 import servicio.Usuario;
 
