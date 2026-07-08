@@ -123,6 +123,9 @@ public abstract class Mascota {
         felicidad = Math.max(0, felicidad - 5);
         if (comida == 0) {
             salud = Math.max(0, salud - 25);
+            if (salud == 0) {
+                morir();
+            }
         }
     }
 
