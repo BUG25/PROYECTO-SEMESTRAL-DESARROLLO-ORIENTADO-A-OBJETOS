@@ -76,6 +76,7 @@ public class Tienda {
                     "No tienes un" + tipoRequerido + "con espacio para adoptar a " + tipo);
         }
         habitatLibre.ocupar();
+        nueva.asignarHabitat(habitatLibre);
         usuario.getMascotas().add(nueva);
         return nueva;
     }

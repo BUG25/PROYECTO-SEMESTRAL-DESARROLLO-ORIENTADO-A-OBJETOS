@@ -24,8 +24,15 @@ public class SimuladorDia {
             new Pulgas(),
             new Resfriado()
     );
+    private final TiendaMascotas tiendaMascotas;
+
+    public SimuladorDia(TiendaMascotas tiendaMascotas) {
+        this.tiendaMascotas = tiendaMascotas;
+    }
 
     public void avanzarPeriodo(Usuario usuario, PeriodoDia periodo) {
+        tiendaMascotas.reputacionPasiva();
+
         for (Habitat habitat : usuario.getHabitats()) {
             habitat.degradarConElTiempo();
         }

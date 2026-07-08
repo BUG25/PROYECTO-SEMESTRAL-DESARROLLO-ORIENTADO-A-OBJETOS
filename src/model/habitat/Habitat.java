@@ -36,6 +36,12 @@ public class Habitat {
         ocupados++;
     }
 
+    public void desocupar() {
+        if (ocupados > 0) {
+            ocupados--;
+        }
+    }
+
     public TipoHabitat getTipo() {
         return tipo;
     }
