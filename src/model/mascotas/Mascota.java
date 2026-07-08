@@ -8,6 +8,8 @@ import model.enfermedades.Enfermedad;
 import model.medicinas.Medicina;
 import servicio.PeriodoDia;
 
+import java.util.Random;
+
 public abstract class Mascota {
     private final String nombre;
     private int comida = 100;
@@ -16,6 +18,7 @@ public abstract class Mascota {
     private int diasContactoSinTratar = 0;
     private CalidadAlimento ultimaCalidadAlimento;
     private Enfermedad enfermedadActual;
+    private Habitat habitatAsignado;
 
     protected Mascota(String nombre) {
         this.nombre = nombre;
@@ -27,6 +30,12 @@ public abstract class Mascota {
         return nombre;
     }
 
+    public void inicializarStatsAleatorios(Random random) {
+        salud = 30 + random.nextInt(31);
+        felicidad = 30 + random.nextInt(31);
+        comida = 30 + random.nextInt(31);
+    }
+
     public int getComida() {
         return comida;
     }
@@ -35,8 +44,19 @@ public abstract class Mascota {
         return salud;
     }
 
+    public boolean estaMuerta() {
+        return salud <= 0;
+    }
+
     public int getFelicidad() {
         return felicidad;
+    }
+
+    public int getPrecioAdopcion() {
+        int precioBase = 1500;
+        int bonoSalud = salud * 20;
+        int bonoFelicidad = felicidad * 10;
+        return precioBase + bonoSalud + bonoFelicidad;
     }
 
     public int getDiasContactoSinTratar() {
@@ -49,6 +69,21 @@ public abstract class Mascota {
 
     public boolean estaEnferma() {
         return enfermedadActual != null;
+    }
+
+    public Habitat getHabitatAsignado() {
+        return habitatAsignado;
+    }
+
+    public void asignarHabitat(Habitat habitat) {
+        this.habitatAsignado = habitat;
+    }
+
+    public void liberarHabitat() {
+        if (habitatAsignado != null) {
+            habitatAsignado.desocupar();
+            habitatAsignado = null;
+        }
     }
 
     public Enfermedad getEnfermedadActual() {
