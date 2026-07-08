@@ -9,11 +9,19 @@ public abstract class Medicina {
         this.nombre = nombre;
         this.costo = costo;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public int getCosto() {
         return costo;
     }
+
     public abstract boolean cura(Enfermedad enfermedad);
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

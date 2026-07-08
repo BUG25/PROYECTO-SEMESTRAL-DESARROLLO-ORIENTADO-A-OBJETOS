@@ -30,4 +30,9 @@ public abstract class Alimento {
     }
 
     public abstract boolean esCompatibleCon(TipoMascota tipo);
+
+    @Override
+    public String toString() {
+        return nombre + " (" + calidad + ") - Nutrición: +" + valorNutricional;
+    }
 }

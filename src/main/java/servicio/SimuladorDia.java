@@ -8,13 +8,11 @@ import model.enfermedades.Pulgas;
 import model.enfermedades.Resfriado;
 import model.mascotas.Mascota;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-/**
- * Coordina el paso del tiempo dentro de un dia.
- * Cada dia se divide en manana, tarde y noche.
- */
 public class SimuladorDia {
     private final Random random = new Random();
     private final List<Enfermedad> enfermedades = List.of(
@@ -25,40 +23,81 @@ public class SimuladorDia {
     );
     private final TiendaMascotas tiendaMascotas;
 
+    private PeriodoDia periodoActual = PeriodoDia.MANANA;
+    private int diasTranscurridos = 1;
+
     public SimuladorDia(TiendaMascotas tiendaMascotas) {
         this.tiendaMascotas = tiendaMascotas;
     }
 
-    public void avanzarPeriodo(Usuario usuario, PeriodoDia periodo) {
-        tiendaMascotas.reputacionPasiva();
+    public PeriodoDia getPeriodoActual() {
+        return periodoActual;
+    }
 
+    public int getDiasTranscurridos() {
+        return diasTranscurridos;
+    }
+
+    public List<Mascota> avanzarPeriodo(Usuario usuario, PeriodoDia destino) {
+        // 1. Ejecutamos degradación del periodo actual
+        tiendaMascotas.reputacionPasiva();
         for (Habitat habitat : usuario.getHabitats()) {
             habitat.degradarConElTiempo();
         }
-
         for (Mascota mascota : usuario.getMascotas()) {
-            if (mascota.estaMuerta()) {
-                continue;
-            }
+            if (mascota.estaMuerta()) continue;
 
-            mascota.degradarConElTiempo(periodo);
+            mascota.degradarConElTiempo(periodoActual);
             evaluarContagio(usuario, mascota);
             if (mascota.estaEnferma()) {
                 mascota.aplicarDañoDeEnfermedad();
             }
         }
 
-        long muertas = usuario.getMascotas().stream().filter(Mascota::estaMuerta).count();
+        // Filtramos y guardamos las mascotas que murieron
+        List<Mascota> mascotasMuertas = usuario.getMascotas().stream()
+                .filter(Mascota::estaMuerta)
+                .collect(Collectors.toList());
+
+        // Las eliminamos de la tienda
         usuario.getMascotas().removeIf(Mascota::estaMuerta);
-        for (long i = 0; i < muertas; i++) {
+
+        // Registramos la penalización por cada una
+        for (Mascota muerta : mascotasMuertas) {
             tiendaMascotas.registrarMuerte();
         }
+
+        // 2. Transición de estado (Ciclo cerrado)
+        if (periodoActual == PeriodoDia.MANANA) {
+            periodoActual = PeriodoDia.TARDE;
+        } else if (periodoActual == PeriodoDia.TARDE) {
+            periodoActual = PeriodoDia.NOCHE;
+        } else if (periodoActual == PeriodoDia.NOCHE) {
+            iniciarNuevoDia(usuario);
+            periodoActual = PeriodoDia.MANANA;
+            diasTranscurridos++;
+        }
+
+        return mascotasMuertas;
     }
 
-    public void avanzarDia(Usuario usuario) {
-        avanzarPeriodo(usuario, PeriodoDia.MANANA);
-        avanzarPeriodo(usuario, PeriodoDia.TARDE);
-        avanzarPeriodo(usuario, PeriodoDia.NOCHE);
+    public List<Mascota> avanzarDia(Usuario usuario) {
+        List<Mascota> todasLasMuertas = new ArrayList<>();
+        // Avanza periodos rápidos hasta que vuelva a ser MAÑANA
+        do {
+            todasLasMuertas.addAll(avanzarPeriodo(usuario, null));
+        } while (periodoActual != PeriodoDia.MANANA);
+
+        return todasLasMuertas;
+    }
+
+    private void iniciarNuevoDia(Usuario usuario) {
+        // Resetea a las mascotas para que vuelvan a poder comer
+        for(Mascota m : usuario.getMascotas()) {
+            if (!m.estaMuerta()) {
+                m.resetearAlimentacionDia();
+            }
+        }
     }
 
     public boolean tratarMascota(Mascota mascota, model.medicinas.Medicina medicina) {
@@ -71,19 +110,13 @@ public class SimuladorDia {
     }
 
     private void evaluarContagio(Usuario usuario, Mascota mascota) {
-        if (mascota.estaEnferma()) {
-            return;
-        }
+        if (mascota.estaEnferma()) return;
 
         Habitat habitat = buscarHabitatCompatible(usuario, mascota);
-        if (habitat == null) {
-            return;
-        }
+        if (habitat == null) return;
 
         double riesgo = mascota.calcularRiesgoEnfermedad(habitat);
-        if (random.nextDouble() >= riesgo) {
-            return;
-        }
+        if (random.nextDouble() >= riesgo) return;
 
         for (Enfermedad enfermedad : enfermedades) {
             if (enfermedad.afecta(mascota.getTipoMascota())) {

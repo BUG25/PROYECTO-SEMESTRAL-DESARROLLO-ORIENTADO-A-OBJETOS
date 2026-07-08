@@ -1,8 +1,8 @@
 package model.habitat;
 
 /**
- * Representa un model.habitat que el cliente adquirio en la tienda
- * cada model.habitat tiene un tipo o capacidad maxima de mascotas
+ * Representa un habitat que el cliente adquirio en la tienda
+ * cada habitat tiene un tipo o capacidad maxima de mascotas
  */
 
 public class Habitat {
@@ -11,7 +11,7 @@ public class Habitat {
     private final int capacidadMaxima;
     private int higiene = 100;
     /**
-     * @param tipo, tipo de model.habitat (arenero, pecera, etc)
+     * @param tipo, tipo de habitat (arenero, pecera, etc)
      * @param capacidadMaxima cuantas mascotas puede alojar como maximo
      */
 
@@ -27,7 +27,7 @@ public class Habitat {
         return ocupados < capacidadMaxima;
     }
     /**
-     * se ocupa un espacio del model.habitat
+     * se ocupa un espacio del habitat
      */
     public void ocupar(){
         if(!tieneEspaciosLibre()){
@@ -60,5 +60,10 @@ public class Habitat {
 
     public void degradarConElTiempo() {
         higiene = Math.max(0, higiene - 4);
+    }
+
+    @Override
+    public String toString() {
+        return tipo.name() + " (" + ocupados + "/" + capacidadMaxima + " ocupados) - Higiene: " + higiene + "%";
     }
 }
