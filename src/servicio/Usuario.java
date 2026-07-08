@@ -1,6 +1,6 @@
 package servicio;
 import habitat.Habitat;
-import model.Mascota;
+import model.mascotas.Mascota;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,18 +1,16 @@
-import excepciones.DineroInsuficienteException;
-import excepciones.SinHabitatDisponibleException;
-import habitat.TipoHabitat;
-import model.Mascota;
-import model.TipoMascota;
-import servicio.Tienda;
-import servicio.Usuario;
+import gui.TiendaGUI;
+
+import javax.swing.SwingUtilities;
 
 /**
- * Se prueba en la consola para verificar que todo funcione correctamente juntos
+ * Punto de entrada principal de la aplicación.
+ * Abre la interfaz gráfica de la tienda.
  */
 public class Main {
-    public static void main(String[] args){
-        Usuario usuario = new Usuario(100.0);
-        Tienda tienda = new Tienda();
-        System.out.println("Dinero inicial: " + usuario.getDinero());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            TiendaGUI gui = new TiendaGUI();
+            gui.setVisible(true);
+        });
     }
 }
