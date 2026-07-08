@@ -126,7 +126,7 @@ public abstract class Mascota {
         }
 
         if (habitat.getHigiene() <= 20) {
-            riesgo += 0.10;
+            riesgo += 0.20;
         }
 
         if (ultimaCalidadAlimento == CalidadAlimento.ESTANDAR) {
