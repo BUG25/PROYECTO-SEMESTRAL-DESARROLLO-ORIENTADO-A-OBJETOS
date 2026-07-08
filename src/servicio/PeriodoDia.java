@@ -1,7 +1,7 @@
-package model.mascotas;
+package servicio;
 
 public enum PeriodoDia {
-    MAÑANA,
+    MANANA,
     TARDE,
     NOCHE
 }
