@@ -3,6 +3,7 @@ package servicio;
 import model.habitat.Habitat;
 import model.alimentos.Alimento;
 import model.medicinas.Medicina;
+import model.habitat.TipoHabitat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ public class CarritoCompra {
         medicinas.add(medicina);
     }
 
-    public void agregarHabitat(Habitat habitat) {
-        habitats.add(new HabitatItem(habitat));
+    public void agregarHabitat(TipoHabitat tipoHabitat) {
+        habitats.add(new HabitatItem(new Habitat(tipoHabitat, tipoHabitat.getCapacidadMaxima())));
     }
 
     public List<Alimento> getAlimentos() {

@@ -1,6 +1,6 @@
 package servicio;
 import excepciones.SinHabitatDisponibleException;
-import  factory.FabricaMascotas;
+import factory.FabricaMascotas;
 import excepciones.DineroInsuficienteException;
 import model.habitat.Habitat;
 import model.habitat.TipoHabitat;
@@ -28,7 +28,7 @@ public class Tienda {
      * @throws DineroInsuficienteException, si el usuario no tiene suficiente dinero
      */
     public void agregarHabitatAlCarrito(CarritoCompra carrito, TipoHabitat tipo) {
-        carrito.agregarHabitat(new Habitat(tipo, tipo.getCapacidadMaxima()));
+        carrito.agregarHabitat(tipo);
     }
 
     public void agregarAlimentoAlCarrito(CarritoCompra carrito, Alimento alimento) {
