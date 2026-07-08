@@ -1,0 +1,11 @@
+package factory;
+import model.mascotas.Mascota;
+
+/**
+ * Clase creadora con patrones de uso, patron Factory Method
+ * se declara el metodo crearMascota, y que cada especie concreta la implementa
+ * para devolver una mascota de su especie
+ */
+public abstract class MascotaFactory {
+    public abstract Mascota crearMascota(String nombre);
+}
