@@ -44,6 +44,12 @@ public class SimuladorDia {
                 mascota.aplicarDañoDeEnfermedad();
             }
         }
+
+        long muertas = usuario.getMascotas().stream().filter(Mascota::estaMuerta).count();
+        usuario.getMascotas().removeIf(Mascota::estaMuerta);
+        for (long i = 0; i < muertas; i++) {
+            tiendaMascotas.registrarMuerte();
+        }
     }
 
     public void avanzarDia(Usuario usuario) {

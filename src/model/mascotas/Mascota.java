@@ -19,6 +19,7 @@ public abstract class Mascota {
     private CalidadAlimento ultimaCalidadAlimento;
     private Enfermedad enfermedadActual;
     private Habitat habitatAsignado;
+    private boolean muerta = false;
 
     protected Mascota(String nombre) {
         this.nombre = nombre;
@@ -45,18 +46,11 @@ public abstract class Mascota {
     }
 
     public boolean estaMuerta() {
-        return salud <= 0;
+        return muerta;
     }
 
     public int getFelicidad() {
         return felicidad;
-    }
-
-    public int getPrecioAdopcion() {
-        int precioBase = 1500;
-        int bonoSalud = salud * 20;
-        int bonoFelicidad = felicidad * 10;
-        return precioBase + bonoSalud + bonoFelicidad;
     }
 
     public int getDiasContactoSinTratar() {
@@ -84,6 +78,16 @@ public abstract class Mascota {
             habitatAsignado.desocupar();
             habitatAsignado = null;
         }
+    }
+
+    public void morir() {
+        if (muerta) {
+            return;
+        }
+        muerta = true;
+        liberarHabitat();
+        enfermedadActual = null;
+        diasContactoSinTratar = 0;
     }
 
     public Enfermedad getEnfermedadActual() {
@@ -147,6 +151,9 @@ public abstract class Mascota {
             return;
         }
         salud = Math.max(0, salud - enfermedadActual.getDañoSalud());
+        if (salud == 0) {
+            morir();
+        }
     }
 
     public double calcularRiesgoEnfermedad(Habitat habitat) {

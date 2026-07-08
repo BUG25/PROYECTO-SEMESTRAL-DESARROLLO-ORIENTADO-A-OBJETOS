@@ -24,6 +24,10 @@ public class TiendaMascotas {
         mejorarReputacion(1);
     }
 
+    public void registrarMuerte() {
+        empeorarReputacion(15);
+    }
+
     public boolean hayCompradorInteresado(Mascota mascota) {
         double probabilidad = calcularProbabilidadInteres(mascota);
         return random.nextDouble() < probabilidad;
@@ -31,12 +35,6 @@ public class TiendaMascotas {
 
     public boolean venderMascota(Usuario vendedor, Mascota mascota) {
         if (!vendedor.getMascotas().contains(mascota)) {
-            return false;
-        }
-
-        if (mascota.estaMuerta()) {
-            liberarMascota(vendedor, mascota);
-            empeorarReputacion(20);
             return false;
         }
 
