@@ -1,6 +1,8 @@
 import gui.TiendaGUI;
 
 import javax.swing.SwingUtilities;
+import servicio.Tienda;
+import servicio.Usuario;
 
 /**
  * Punto de entrada principal de la aplicación.

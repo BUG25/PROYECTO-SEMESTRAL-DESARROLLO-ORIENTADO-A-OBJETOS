@@ -1,47 +1,70 @@
 package servicio;
 import excepciones.SinHabitatDisponibleException;
-import  factory.FabricaMascotas;
+import factory.FabricaMascotas;
 import excepciones.DineroInsuficienteException;
-import habitat.Habitat;
-import habitat.TipoHabitat;
+import model.habitat.Habitat;
+import model.habitat.TipoHabitat;
+import model.alimentos.Alimento;
 import model.mascotas.Mascota;
 import model.mascotas.TipoMascota;
+import model.medicinas.Medicina;
 
 /**
- * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y habitat necesaria)
+ * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y model.habitat necesaria)
  * no guarda ninguna información del usuario
  */
 
 public class Tienda {
     private final FabricaMascotas fabricaMascotas = new FabricaMascotas();
 
+    public CarritoCompra crearCarrito() {
+        return new CarritoCompra();
+    }
+
     /**
-     * EL usuario adquiere un habitat, se valida que tenga dinero suficiente, si lo tiene
-     * se le descuenta y se agrega el habitat a su lista
-     * @param usuario, quien esta comprando
+     * EL usuario adquiere un model.habitat, se valida que tenga dinero suficiente, si lo tiene
+     * se le descuenta y se agrega el model.habitat a su lista
      * @param tipo, tipo de habitata que adquirio
-     * @param costo, precio del habitat
-     * @param capacidad, cuantas mascotas puede tener
      * @throws DineroInsuficienteException, si el usuario no tiene suficiente dinero
      */
-    public void comprarHabitat(Usuario usuario, TipoHabitat tipo, int capacidad, double costo)
-            throws DineroInsuficienteException{
-        if(usuario.getDinero() < costo){
-            throw new DineroInsuficienteException(
-                    "No tiene dinero suficiente para comprar " + tipo);
-        }
-        usuario.descontarDinero(costo);
-        usuario.getHabitats().add(new Habitat(tipo,capacidad));
+    public void agregarHabitatAlCarrito(CarritoCompra carrito, TipoHabitat tipo) {
+        carrito.agregarHabitat(tipo);
     }
+
+    public void agregarAlimentoAlCarrito(CarritoCompra carrito, Alimento alimento) {
+        carrito.agregarAlimento(alimento);
+    }
+
+    public void agregarMedicinaAlCarrito(CarritoCompra carrito, Medicina medicina) {
+        carrito.agregarMedicina(medicina);
+    }
+
+    public void pagarCarrito(Usuario usuario, CarritoCompra carrito) throws DineroInsuficienteException {
+        int total = carrito.getTotal();
+        if (usuario.getDinero() < total) {
+            throw new DineroInsuficienteException("No tiene dinero suficiente para pagar el carrito");
+        }
+
+        usuario.descontarDinero(total);
+
+        usuario.getAlimentos().addAll(carrito.getAlimentos());
+        usuario.getMedicinas().addAll(carrito.getMedicinas());
+        for (CarritoCompra.HabitatItem item : carrito.getHabitats()) {
+            usuario.getHabitats().add(item.getHabitat());
+        }
+
+        carrito.vaciar();
+    }
+
     /**
      * EL usuario adopta a una mascota nueva. Se crea la mascotacon el factory method, y luego se analiza entre
-     * los habitats del usuario, se verifica que tenga el habitat correcto con capacidad suficiente
+     * los habitats del usuario, se verifica que tenga el model.habitat correcto con capacidad suficiente
      * si no existe se lanza SinHabitatDisponibleException y no se puede adoptar a la mascota
      * @param usuario, quien adopta
      * @param tipo, especie que se quiere adoptar
      * @param nombre, nombre que se le da a la mascota
      * @return, la mascota recien adoptada
-     * @throws excepciones.SinHabitatDisponibleException, si no hay habitat compatible con la especie
+     * @throws excepciones.SinHabitatDisponibleException, si no hay model.habitat compatible con la especie
      */
     public Mascota adoptarMascota(Usuario usuario, TipoMascota tipo, String nombre)
         throws SinHabitatDisponibleException{
@@ -53,12 +76,13 @@ public class Tienda {
                     "No tienes un" + tipoRequerido + "con espacio para adoptar a " + tipo);
         }
         habitatLibre.ocupar();
+        nueva.asignarHabitat(habitatLibre);
         usuario.getMascotas().add(nueva);
         return nueva;
     }
     /**
-     * Bisca entre los habitats del usuario, que si tiene el habitat requerido y si tiene espacio libre
-     * @return el habitat encontrado, sino debuelve null
+     * Bisca entre los habitats del usuario, que si tiene el model.habitat requerido y si tiene espacio libre
+     * @return el model.habitat encontrado, sino debuelve null
      */
     private Habitat buscarHabitatConEspacio(Usuario usuario, TipoHabitat tipoRequerido){
         for (Habitat h : usuario.getHabitats()){

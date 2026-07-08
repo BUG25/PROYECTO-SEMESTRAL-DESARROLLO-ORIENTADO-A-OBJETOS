@@ -1,5 +1,5 @@
 package model.mascotas;
-import habitat.TipoHabitat;
+import model.habitat.TipoHabitat;
 
 /**
  * Especie : Perro

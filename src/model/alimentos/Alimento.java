@@ -18,7 +18,7 @@ public abstract class Alimento {
         return nombre;
     }
 
-    public double getCosto() {
+    public int getCosto() {
         return costo;
     }
 
