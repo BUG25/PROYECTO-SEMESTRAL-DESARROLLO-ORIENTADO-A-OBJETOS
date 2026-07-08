@@ -4,8 +4,10 @@ import  factory.FabricaMascotas;
 import excepciones.DineroInsuficienteException;
 import habitat.Habitat;
 import habitat.TipoHabitat;
+import model.alimentos.Alimento;
 import model.mascotas.Mascota;
 import model.mascotas.TipoMascota;
+import model.medicinas.Medicina;
 
 /**
  * representa la tienda, valida las reglas ( que haya suficiente dinero para comprar y habitat necesaria)
@@ -15,24 +17,45 @@ import model.mascotas.TipoMascota;
 public class Tienda {
     private final FabricaMascotas fabricaMascotas = new FabricaMascotas();
 
+    public CarritoCompra crearCarrito() {
+        return new CarritoCompra();
+    }
+
     /**
      * EL usuario adquiere un habitat, se valida que tenga dinero suficiente, si lo tiene
      * se le descuenta y se agrega el habitat a su lista
-     * @param usuario, quien esta comprando
      * @param tipo, tipo de habitata que adquirio
-     * @param costo, precio del habitat
-     * @param capacidad, cuantas mascotas puede tener
      * @throws DineroInsuficienteException, si el usuario no tiene suficiente dinero
      */
-    public void comprarHabitat(Usuario usuario, TipoHabitat tipo, int capacidad, double costo)
-            throws DineroInsuficienteException{
-        if(usuario.getDinero() < costo){
-            throw new DineroInsuficienteException(
-                    "No tiene dinero suficiente para comprar " + tipo);
-        }
-        usuario.descontarDinero(costo);
-        usuario.getHabitats().add(new Habitat(tipo,capacidad));
+    public void agregarHabitatAlCarrito(CarritoCompra carrito, TipoHabitat tipo) {
+        carrito.agregarHabitat(new Habitat(tipo, tipo.getCapacidadMaxima()));
     }
+
+    public void agregarAlimentoAlCarrito(CarritoCompra carrito, Alimento alimento) {
+        carrito.agregarAlimento(alimento);
+    }
+
+    public void agregarMedicinaAlCarrito(CarritoCompra carrito, Medicina medicina) {
+        carrito.agregarMedicina(medicina);
+    }
+
+    public void pagarCarrito(Usuario usuario, CarritoCompra carrito) throws DineroInsuficienteException {
+        int total = carrito.getTotal();
+        if (usuario.getDinero() < total) {
+            throw new DineroInsuficienteException("No tiene dinero suficiente para pagar el carrito");
+        }
+
+        usuario.descontarDinero(total);
+
+        usuario.getAlimentos().addAll(carrito.getAlimentos());
+        usuario.getMedicinas().addAll(carrito.getMedicinas());
+        for (CarritoCompra.HabitatItem item : carrito.getHabitats()) {
+            usuario.getHabitats().add(item.getHabitat());
+        }
+
+        carrito.vaciar();
+    }
+
     /**
      * EL usuario adopta a una mascota nueva. Se crea la mascotacon el factory method, y luego se analiza entre
      * los habitats del usuario, se verifica que tenga el habitat correcto con capacidad suficiente

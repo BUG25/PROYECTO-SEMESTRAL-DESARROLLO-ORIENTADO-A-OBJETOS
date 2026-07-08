@@ -1,6 +1,8 @@
 package servicio;
 import habitat.Habitat;
-import model.Mascota;
+import model.alimentos.Alimento;
+import model.mascotas.Mascota;
+import model.medicinas.Medicina;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,8 @@ public class Usuario {
     private double dinero;
     private final List<Habitat> habitats = new ArrayList<>();
     private final List<Mascota> mascotas = new ArrayList<>();
+    private final List<Alimento> alimentos = new ArrayList<>();
+    private final List<Medicina> medicinas = new ArrayList<>();
 
     public Usuario(double dineroInicial){
         this.dinero = dineroInicial;
@@ -47,5 +51,13 @@ public class Usuario {
 
     public List<Mascota> getMascotas() {
         return mascotas;
+    }
+
+    public List<Alimento> getAlimentos() {
+        return alimentos;
+    }
+
+    public List<Medicina> getMedicinas() {
+        return medicinas;
     }
 }
