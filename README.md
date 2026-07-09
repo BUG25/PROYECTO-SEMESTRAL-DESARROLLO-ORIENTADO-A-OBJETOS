@@ -1,3 +1,9 @@
+# INFORME PROYECTO SEMESTRAL (TIENDA VIRTUAL DE MASCOTAS)
+ALUMNOS: 
+- Diego Alday
+- Josefa Arriagada
+- Trinidad Castro
+
 # INTRODUCCIÓN
 La gestión de un entorno interactivo virtual, como lo es el proyecto de simulación, requiere de una estructura lógica rigurosa que coordine el estado de las entidades (mascotas, cliente, las restricciones del inventario y las dinámicas económicas subyacentes). Administrar variables dinámicas en tiempo real (como salud, alimentación y felicidad de múltiples mascotas) a través de interacciones manuales o estructuras de código, incrementa exponencialmente el riesgo de errores de consistencia, acoplamiento rígido y fallos en tiempo de ejecución. El presente informe tiene como objetivo documentar el desarrollo de un Simulador de Tienda de Mascotas Virtual.
 
